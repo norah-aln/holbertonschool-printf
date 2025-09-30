@@ -24,32 +24,34 @@ int _printf(const char *format, ...)
 			i++;
 			if (format[i] == '\0')
 				break;
+
 			if (format[i] == '%')
 			{
 				_putchar('%');
 				count++;
 			}
-		}
-		else if (format[i] == 'c')
-		{
-			char c =va_arg(args,int);
-			_putchar(c);
-			count++;
-		}
-		else if (format[i] == 's')
-		{
-			char *str = va_arg(args, char *);
-			int j = 0;
-			if (str == NULL)
-				str = "(null)";
-			while (str[j] != '\0')
+			else if (format[i] == 'c')
 			{
-				_putchar(str[j]);
+				char c = va_arg(args, int);
+				_putchar(c);
 				count++;
-				j++;
+			}
+			else if (format[i] == 's')
+			{
+				char *str = va_arg(args, char *);
+				int j = 0;
+
+				if (str == NULL)
+					str = "(null)";
+
+				while (str[j] != '\0')
+				{
+					_putchar(str[j]);
+					count++;
+					j++;
+				}
 			}
 		}
-	}
 		else
 		{
 			_putchar(format[i]);
@@ -57,7 +59,7 @@ int _printf(const char *format, ...)
 		}
 		i++;
 	}
-	
+
 	va_end(args);
 	return (count);
 }
