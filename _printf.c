@@ -1,4 +1,5 @@
 #include "main.h"
+
 /**
  * print_char - prints a character
  * @args: va_list containing the character
@@ -10,8 +11,9 @@ int print_char(va_list args)
 	char c = va_arg(args, int);
 
 	_putchar(c);
-	return(1);
+	return (1);
 }
+
 /**
  * print_string - prints a string
  * @args: va_list containing the string
@@ -28,8 +30,8 @@ int print_string(va_list args)
 
 	while (str[count] != '\0')
 	{
-		_putchar(str[count] != '\0');
-                count++;
+		_putchar(str[count]);
+		count++;
 	}
 
 	return (count);
@@ -67,6 +69,7 @@ int handle_format(char format, va_list args)
 		{'%', print_percent},
 		{'\0', NULL}
 	};
+
 	for (i = 0; specs[i].specifier != '\0'; i++)
 	{
 		if (format == specs[i].specifier)
@@ -77,6 +80,7 @@ int handle_format(char format, va_list args)
 	_putchar(format);
 	return (2);
 }
+
 /**
  * _printf - produces output according to a format
  * @format: format string
