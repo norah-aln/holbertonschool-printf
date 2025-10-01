@@ -4,7 +4,7 @@
  * print_char - prints a character
  * @args: va_list containing the character
  *
- * Return: number of characters printed (1)
+ * Return: number of characters printed
  */
 int print_char(va_list args)
 {
@@ -33,7 +33,6 @@ int print_string(va_list args)
 		_putchar(str[count]);
 		count++;
 	}
-
 	return (count);
 }
 
@@ -41,7 +40,7 @@ int print_string(va_list args)
  * print_percent - prints a percent sign
  * @args: va_list (unused)
  *
- * Return: number of characters printed (1)
+ * Return: number of characters printed
  */
 int print_percent(va_list args)
 {
@@ -51,30 +50,54 @@ int print_percent(va_list args)
 }
 
 /**
+ * print_int - prints an integer
+ * @args: va_list containing the integer
+ *
+ * Return: number of characters printed
+ */
+int print_int(va_list args)
+{
+	int n = va_arg(args, int);
+	unsigned int num;
+	int count = 0;
+
+	if (n < 0)
+	{
+		_putchar('-');
+		count++;
+		num = -n;
+	}
+	else
+	{
+		num = n;
+	}
+
+	if (num / 10)
+		count += print_int((va_list)&(num /= 10));
+
+	_putchar((num % 10) + '0');
+	count++;
+
+	return (count);
+}
+
+/**
  * handle_format - handles format specifiers
  * @format: format character
  * @args: va_list of arguments
  *
- * Return: number of characters printed, or 0 if unknown
+ * Return: number of characters printed
  */
 int handle_format(char format, va_list args)
 {
-	int i;
-	struct format_spec {
-		char specifier;
-		int (*func)(va_list);
-	} specs[] = {
-		{'c', print_char},
-		{'s', print_string},
-		{'%', print_percent},
-		{'\0', NULL}
-	};
-
-	for (i = 0; specs[i].specifier != '\0'; i++)
-	{
-		if (format == specs[i].specifier)
-			return (specs[i].func(args));
-	}
+	if (format == 'c')
+		return (print_char(args));
+	if (format == 's')
+		return (print_string(args));
+	if (format == '%')
+		return (print_percent(args));
+	if (format == 'd' || format == 'i')
+		return (print_int(args));
 
 	_putchar('%');
 	_putchar(format);
@@ -89,15 +112,13 @@ int handle_format(char format, va_list args)
  */
 int _printf(const char *format, ...)
 {
-	int count = 0;
-	int i = 0;
+	int count = 0, i = 0;
 	va_list args;
 
 	if (format == NULL)
 		return (-1);
 
 	va_start(args, format);
-
 	while (format[i] != '\0')
 	{
 		if (format[i] == '%')
@@ -117,7 +138,7 @@ int _printf(const char *format, ...)
 		}
 		i++;
 	}
-
 	va_end(args);
 	return (count);
 }
+
