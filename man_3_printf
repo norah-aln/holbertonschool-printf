@@ -1,8 +1,8 @@
 .\" Manpage for _printf
 .\" Description: Custom printf function implementation
-.\" Author: [Your Name]
+.\" Author: [Layan Aldossari]
 
-.TH _PRINTF 3 "December 2023" "Version 1.0" "Custom Printf Manual"
+.TH _PRINTF 3 "October 2025" "Version 1.0" "Custom Printf Manual"
 .SH NAME
 _printf \- formatted output conversion
 .SH SYNOPSIS
@@ -135,4 +135,4 @@ and the specifier are printed to the output.
 .BR printf (3)
 .SH AUTHORS
 .PP
-Developed as part of the Holberton School curriculum.
+Developed by [Layan Aldossari] and [Norah Alnujidi] as part of the Holberton School curriculum.
